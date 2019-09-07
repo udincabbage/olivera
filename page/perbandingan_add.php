@@ -47,7 +47,7 @@ while ($kolomData = mysqli_fetch_array($pageQry)) {
 			
 <label class="pilihan"><?php echo $kolomData[$field[5]];?>
   
-  <input type="checkbox" name="objek[]" value="<?php echo $kolomData[$field[5]];?>">
+  <input type="checkbox" name="objek[]" value="<?php echo $kolomData[$field[0]];?>">
   <span class="checkmark"></span>
 </label> 
 			<!-- <legend><?php echo $kolomData[$field[5]];?> </legend>-->

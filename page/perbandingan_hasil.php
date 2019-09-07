@@ -17,19 +17,19 @@ $hal = isset($_GET['hal']) ? $_GET['hal'] : 0;
 $pageSql = "SELECT $tableName.*,jenis_subjek.nama AS nama_jenis FROM ".$tableName." LEFT JOIN jenis_subjek ON jenis_subjek.id=$tableName.id_jenis  WHERE $tableName.id !=$Kode ORDER BY $tableName.updated_at DESC "; 
  
  
-	$data[1]	= isset($_POST['txt1']) ? $_POST['txt1'] : ''; 
-	$data[2]	= isset($_POST['txt2']) ? $_POST['txt2'] : ''; 
-	$data[3]	= isset($_POST['txt3']) ? $_POST['txt3'] : ''; 
-	$data[4]	= isset($_POST['txt4']) ? $_POST['txt4'] : ''; 
-	$data[5]	= isset($_POST['txt5']) ? $_POST['txt5'] : ''; 
-	$data[6]	= isset($_POST['txt6']) ? $_POST['txt6'] : ''; 
-	$data[7]	= isset($_POST['txt7']) ? $_POST['txt7'] : ''; 
-	$data[8]	= isset($_POST['txt8']) ? $_POST['txt8'] : ''; 
-	$data[9]	= isset($_POST['txt9']) ? $_POST['txt9'] : 'Banjarbaru'; 
-	$data[10]	= isset($_POST['txt10']) ? $_POST['txt10'] : ''; 
-	$data[11]	= isset($_POST['txt11']) ? $_POST['txt11'] : ''; 
-	$data[12]	= isset($_POST['txt12']) ? $_POST['txt12'] : ''; 
-	$data[13]	= isset($_POST['txt13']) ? $_POST['txt13'] : ''; 
+	// $data[1]	= isset($_POST['txt1']) ? $_POST['txt1'] : ''; 
+	// $data[2]	= isset($_POST['txt2']) ? $_POST['txt2'] : ''; 
+	// $data[3]	= isset($_POST['txt3']) ? $_POST['txt3'] : ''; 
+	// $data[4]	= isset($_POST['txt4']) ? $_POST['txt4'] : ''; 
+	// $data[5]	= isset($_POST['txt5']) ? $_POST['txt5'] : ''; 
+	// $data[6]	= isset($_POST['txt6']) ? $_POST['txt6'] : ''; 
+	// $data[7]	= isset($_POST['txt7']) ? $_POST['txt7'] : ''; 
+	// $data[8]	= isset($_POST['txt8']) ? $_POST['txt8'] : ''; 
+	// $data[9]	= isset($_POST['txt9']) ? $_POST['txt9'] : 'Banjarbaru'; 
+	// $data[10]	= isset($_POST['txt10']) ? $_POST['txt10'] : ''; 
+	// $data[11]	= isset($_POST['txt11']) ? $_POST['txt11'] : ''; 
+	// $data[12]	= isset($_POST['txt12']) ? $_POST['txt12'] : ''; 
+	// $data[13]	= isset($_POST['txt13']) ? $_POST['txt13'] : ''; 
 	
 $pageQry = mysqli_query($koneksidb, $pageSql) or die ("error paging1: ".mysqli_error($koneksidb)); 
 $jml	 = mysqli_num_rows($pageQry); 
@@ -42,11 +42,16 @@ $max	 = ceil($jml/$row);
 // }
 // }
 // else { echo "kadada postnya";}
+//CODE 1
+$jumlah = count($_POST['objek']); //menghitung jumlah value yang di centang
+for($i=0; $i<$jumlah; $i++){
+           echo $_POST['objek'][$i]."-";
+}
+//END CODE 1
+echo "<hr>";
 
-foreach($_POST['objek'] as $hobby) {
-echo "<p>".$hobby ."</p>"; //Print all the hobi
-// Alert hobi using JS
-$show = "<p>".$hobby ."</p>";
+foreach($_POST['objek'] as $ojek) {
+echo "<p>".$ojek ."</p>"; //Print all the hobi 
 }
 ?>
 
