@@ -11,48 +11,23 @@ $pageQry2 = mysqli_query($koneksidb, $pageSql2) or die ("error paging: ".mysqli_
 $kolData = mysqli_fetch_array($pageQry2);
 
 include_once "mast/subjek_config.php"; 
+$jumlah = count($_POST['objek']); //menghitung jumlah value yang di centang
+ $objeks= "subjek.id=".$_POST['objek'][0]; 
+	//echo $objeks;
+for($i=1; $i<$jumlah; $i++){
+           $objeks.= " OR subjek.id=".$_POST['objek'][$i];
+}
 
 $row = 20; 
 $hal = isset($_GET['hal']) ? $_GET['hal'] : 0; 
-$pageSql = "SELECT $tableName.*,jenis_subjek.nama AS nama_jenis FROM ".$tableName." LEFT JOIN jenis_subjek ON jenis_subjek.id=$tableName.id_jenis  WHERE $tableName.id !=$Kode ORDER BY $tableName.updated_at DESC "; 
+$pageSql = "SELECT $tableName.*,jenis_subjek.nama AS nama_jenis FROM ".$tableName." LEFT JOIN jenis_subjek ON jenis_subjek.id=$tableName.id_jenis  WHERE $objeks ORDER BY $tableName.updated_at DESC "; 
  
  
-	// $data[1]	= isset($_POST['txt1']) ? $_POST['txt1'] : ''; 
-	// $data[2]	= isset($_POST['txt2']) ? $_POST['txt2'] : ''; 
-	// $data[3]	= isset($_POST['txt3']) ? $_POST['txt3'] : ''; 
-	// $data[4]	= isset($_POST['txt4']) ? $_POST['txt4'] : ''; 
-	// $data[5]	= isset($_POST['txt5']) ? $_POST['txt5'] : ''; 
-	// $data[6]	= isset($_POST['txt6']) ? $_POST['txt6'] : ''; 
-	// $data[7]	= isset($_POST['txt7']) ? $_POST['txt7'] : ''; 
-	// $data[8]	= isset($_POST['txt8']) ? $_POST['txt8'] : ''; 
-	// $data[9]	= isset($_POST['txt9']) ? $_POST['txt9'] : 'Banjarbaru'; 
-	// $data[10]	= isset($_POST['txt10']) ? $_POST['txt10'] : ''; 
-	// $data[11]	= isset($_POST['txt11']) ? $_POST['txt11'] : ''; 
-	// $data[12]	= isset($_POST['txt12']) ? $_POST['txt12'] : ''; 
-	// $data[13]	= isset($_POST['txt13']) ? $_POST['txt13'] : ''; 
 	
 $pageQry = mysqli_query($koneksidb, $pageSql) or die ("error paging1: ".mysqli_error($koneksidb)); 
 $jml	 = mysqli_num_rows($pageQry); 
 $max	 = ceil($jml/$row); 
-
-// if(!empty($_POST['objek'])){
-// // Loop to store and display values of individual checked checkbox.
-// foreach($_POST['objek'] as $selected){
-// echo $selected."</br>";
-// }
-// }
-// else { echo "kadada postnya";}
-//CODE 1
-$jumlah = count($_POST['objek']); //menghitung jumlah value yang di centang
-for($i=0; $i<$jumlah; $i++){
-           echo $_POST['objek'][$i]."-";
-}
-//END CODE 1
-echo "<hr>";
-
-foreach($_POST['objek'] as $ojek) {
-echo "<p>".$ojek ."</p>"; //Print all the hobi 
-}
+  
 ?>
 
 <table class="table table-striped blue"> 
@@ -68,7 +43,7 @@ echo "<p>".$ojek ."</p>"; //Print all the hobi
 </table>  	 
 
 
-<div class="box beda round row-fluid span4">
+<div class="box beda round row-fluid span3">
  <legend>Subjek <?php echo $kolData['nama_subjek']; ?></legend>
  
 
@@ -115,56 +90,49 @@ echo "<p>".$ojek ."</p>"; //Print all the hobi
 	<?php
 while ($kolomData = mysqli_fetch_array($pageQry)) {
 ?>	
-<div class="box card row-fluid span3">  
-		 
-		<fieldset>  
-			<!-- <legend><?php echo $kolomData[$field[5]];?> </legend>-->
-			
-			  
-			 <div class="container">
-			 
-				<img src="images/foto/<?php echo $kolomData[$field[13]] ? $kolomData[$field[13]] :"no-image.png";?>"> 
-			 
-			 
+
+<div class="box round row-fluid span3">
+ <legend>Subjek <?php echo $kolomData['nama']; ?></legend>
  
-		<div class="overlay">
-			
-			 <table class="table "> 
-			<tr>
-				<td><?php echo $isian[5];?></td> 
-					<td><?php echo $kolomData[$field[5]];?></td> 
-			</tr>
-			<tr>
-				<td><?php echo $isian[6];?></td> 
-					<td><?php echo $kolomData[$field[6]];?></td> 
-			</tr>
-			<tr>
-				<td><?php echo $isian[7];?></td> 
-					<td><?php echo $kolomData[$field[7]];?></td> 
-			</tr>
-			<tr>
-				<td><?php echo $isian[8];?></td> 
-					<td><?php echo $kolomData[$field[8]];?></td> 
-			</tr>
-			<tr>
-				<td><?php echo $isian[9];?></td> 
-					<td><?php echo $kolomData[$field[9]];?></td> 
-			</tr>
-			<tr>
-				<td><?php echo $isian[10];?>, <?php echo $isian[11];?></td> 
-					<td><?php echo $kolomData[$field[10]];?>,<?php echo $kolomData[$field[11]];?></td> 
-			</tr> 
-			 
-			<tr>
-				<td><?php echo $isian[12];?></td> 
-					<td><?php echo $kolomData[$field[12]];?></td> 
-				</tr> 
-		</table>
-		</div>
-			 
-			
-		</fieldset>
-		 </form>
-		</div>
+
+	<table class="table">
+
+		<tr>
+			<img src="images/foto/<?php echo $kolomData['foto'] ? $kolomData['foto'] :"no-image.png";?>"> 
+		</tr>
+		<tr>
+			<td>Nama Subjek</td>
+				<td><?php echo $kolomData['nama'];?></td>
+		</tr>
+		<tr>
+			<td>Alamat</td>
+				<td><?php echo $kolomData['alamat'];?></td>
+		</tr>
+		<tr>
+			<td>Kelurahan</td>
+				<td><?php echo $kolomData['kelurahan'];?></td>
+		</tr>
+		<tr>
+			<td>Kecamatan</td>
+				<td> <?php echo $kolomData['kecamatan'];?> </td>
+		</tr>
+		<tr>
+			<td>Kota</td>
+				<td><?php echo $kolomData['kota'];?></td>
+		</tr>
+		<tr>
+			<td>Lat,Lng</td>
+				<td><?php echo $kolData['lat'];?>, <?php echo $kolomData['lng'];?></td>
+		</tr> 
+		 
+		<tr>
+			<td><?php echo $isian[12];?></td>
+				<td><?php echo $kolomData[$field[12]];?></td>
+		</tr>
+		 
+		 
+		 
+	</table>
+	</div>
 					
 <?php } ?>	 
