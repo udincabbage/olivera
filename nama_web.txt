@@ -1,0 +1,5 @@
+SINIAT - SIPILAT (Sistem Informasi Penilaian Aset)
+Alabamida (aplikasi Penilaian Barang Milik Daerah)
+silabamirah (Sistem Informasi Penilaian Barang milik Daerah)
+Simaliat (SI optimasi penilaian Aset)
+olivera (optimalisasi penilaian dan verifikasi aset)
